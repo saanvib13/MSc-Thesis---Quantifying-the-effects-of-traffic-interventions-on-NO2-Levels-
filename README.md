@@ -35,3 +35,15 @@ Local traffic is a dominant urban source of NO₂, yet the real-world efficacy o
 
 Note: All timestamps use Europe/Dublin and handle DST correctly; 2-min sensor data are aggregated to hourly for comparability. Missing-data handling follows a daily threshold (remove if >25% missing), then linear interpolation + local smoothing + hourly medians as needed. 
 
+### Methods Used
+
+1. Changepoints: PELT (and Binary Segmentation/GA for sensitivity) with MBIC/BIC penalties; ARIMA residualization reduces autocorrelation issues; rolling two-week windows merged within ±1h tolerance. Outputs include regime IDs and segment mean NO₂ per timestamp.
+
+2. Features: Meteorology (+ wind dir as sin/cos), PCA traffic (car/HGV), hour/day/DoY, school-term flag, and changepoint features.
+
+3. Models:
+
+          i. Random Forest (scikit-learn), permutation importance for interpretability.
+
+         ii. LSTM (Keras/TensorFlow) with look-back windows (24/48/72h), Adam + MSE, early stopping.
+4. Evaluation: Held-out windows around interventions (e.g., St Patrick’s Day, Open Streets, Car-Free Day), removing the day before/after from training to test generalization to unseen disruptions.
