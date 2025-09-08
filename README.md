@@ -10,6 +10,6 @@ Local traffic is a dominant urban source of NO₂, yet the real-world efficacy o
 
 3. Dual modeling track:
 
-i. Random Forest (RF) benefits most from structural context (changepoint features).
+  Random Forest (RF) benefits most from structural context (changepoint features).
 
-ii. LSTM excels at complex temporal dynamics and delayed rebounds after interventions.
+  LSTM excels at complex temporal dynamics and delayed rebounds after interventions.
